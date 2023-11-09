@@ -6,6 +6,20 @@ from sqlalchemy import Boolean, String, ForeignKey, Integer, Column, Float
 class Base (DeclarativeBase):
     pass
 
+class CategoryType(Base):
+    __tablename__ = "category_types"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = Column(String, default="Name")
+    #category = relationship("MenuItem")
+
+class CuisineType(Base):
+    __tablename__ = "cuisine_types"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = Column(String, default="Name")
+   #cuisine = relationship("MenuItem")
+
 class MenuItem(Base):
     __tablename__ = "menu_items"
 
@@ -14,13 +28,16 @@ class MenuItem(Base):
     description: Mapped[str] = Column(String, default="Description")
     price: Mapped[float] = Column(Float, default="Price")
     spice_level: Mapped[int] = Column(Integer, default="Spice Level")
-    # category_type_id: Mapped[int] = Column(Integer, default="Category Type Id")
-    # cuisine_type_id: Mapped[int] = Column(Integer, default="Cuisine Type Id")
+    category_type_id = Column(Integer, ForeignKey("category_types.id"))
+    cuisine_type_id = Column(Integer, ForeignKey("cuisine_types.id"))
+
+    categories = relationship("CategoryType")
+    cuisines = relationship("CuisineType")
 
     def __repr__(self) -> str:
         return f"""MenuItem(id={self.id!r},
         name={self.name!r},
         description={self.description!r},
         price={self.price!r},
-        spice_level={self.spice_level!r},)
+        spice_level={self.spice_level!r})
         """

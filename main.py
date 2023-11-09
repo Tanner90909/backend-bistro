@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from sqlalchemy import Select
-from models import MenuItem
+from models import MenuItem, CategoryType, CuisineType
 from routes import route
 
 app = FastAPI()

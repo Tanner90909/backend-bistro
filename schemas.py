@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel
 
 class CategoryTypeModel(BaseModel):
@@ -15,3 +15,5 @@ class MenuItemModel(BaseModel):
     description: str | None
     price: float | None
     spice_level: int | None
+    categories: List[CategoryTypeModel] = []
+    cuisines: List[CuisineTypeModel] = []
